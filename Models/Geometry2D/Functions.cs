@@ -11,7 +11,7 @@
         /// <param name="l1"></param>
         /// <param name="l2"></param>
         /// <returns>
-        /// несуществующая точка, если такой точки не существует
+        /// Несуществующая точка, если такой точки не существует
         /// </returns>
         public static Point CrossLines(Line l1, Line l2)
         {
