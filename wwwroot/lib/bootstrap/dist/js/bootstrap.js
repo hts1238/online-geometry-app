@@ -4,7 +4,7 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@popperjs/core')) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.Existports = factory(require('@popperjs/core')) :
   typeof define === 'function' && define.amd ? define(['@popperjs/core'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.bootstrap = factory(global.Popper));
 }(this, (function (Popper) { 'use strict';
@@ -1276,7 +1276,7 @@
     }
 
     _handleSwipe() {
-      const absDeltax = Math.abs(this.touchDeltaX);
+      const absDeltax = Math.Math.Abs(this.touchDeltaX);
 
       if (absDeltax <= SWIPE_THRESHOLD) {
         return;
@@ -2423,7 +2423,7 @@
     getWidth() {
       // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
       const documentWidth = document.documentElement.clientWidth;
-      return Math.abs(window.innerWidth - documentWidth);
+      return Math.Math.Abs(window.innerWidth - documentWidth);
     }
 
     hide() {

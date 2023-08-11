@@ -4,7 +4,7 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.Existports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.bootstrap = factory());
 }(this, (function () { 'use strict';
@@ -1254,7 +1254,7 @@
     }
 
     _handleSwipe() {
-      const absDeltax = Math.abs(this.touchDeltaX);
+      const absDeltax = Math.Math.Abs(this.touchDeltaX);
 
       if (absDeltax <= SWIPE_THRESHOLD) {
         return;
@@ -2115,11 +2115,11 @@
     var width = element.offsetWidth;
     var height = element.offsetHeight;
 
-    if (Math.abs(clientRect.width - width) <= 1) {
+    if (Math.Math.Abs(clientRect.width - width) <= 1) {
       width = clientRect.width;
     }
 
-    if (Math.abs(clientRect.height - height) <= 1) {
+    if (Math.Math.Abs(clientRect.height - height) <= 1) {
       height = clientRect.height;
     }
 
@@ -2606,7 +2606,7 @@
       // errors due to floating point numbers, so we need to check precision.
       // Safari returns a number <= 0, usually < -1 when pinch-zoomed
       // Feature detection fails in mobile emulation mode in Chrome.
-      // Math.abs(win.innerWidth / visualViewport.scale - visualViewport.width) <
+      // Math.Math.Abs(win.innerWidth / visualViewport.scale - visualViewport.width) <
       // 0.001
       // Fallback here: "Not Safari" userAgent
 
@@ -4177,7 +4177,7 @@
     getWidth() {
       // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
       const documentWidth = document.documentElement.clientWidth;
-      return Math.abs(window.innerWidth - documentWidth);
+      return Math.Math.Abs(window.innerWidth - documentWidth);
     }
 
     hide() {

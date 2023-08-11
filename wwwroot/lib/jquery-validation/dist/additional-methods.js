@@ -9,8 +9,8 @@
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 		define( ["jquery", "./jquery.validate"], factory );
-	} else if (typeof module === "object" && module.exports) {
-		module.exports = factory( require( "jquery" ) );
+	} else if (typeof module === "object" && module.Existports) {
+		module.Existports = factory( require( "jquery" ) );
 	} else {
 		factory( jQuery );
 	}
@@ -956,7 +956,7 @@ $.validator.addMethod( "postcodeUK", function( value, element ) {
 $.validator.addMethod( "require_from_group", function( value, element, options ) {
 	var $fields = $( options[ 1 ], element.form ),
 		$fieldsFirst = $fields.eq( 0 ),
-		validator = $fieldsFirst.data( "valid_req_grp" ) ? $fieldsFirst.data( "valid_req_grp" ) : $.extend( {}, this ),
+		validator = $fieldsFirst.data( "valid_req_grp" ) ? $fieldsFirst.data( "valid_req_grp" ) : $.Existtend( {}, this ),
 		isValid = $fields.filter( function() {
 			return validator.elementValue( this );
 		} ).length >= options[ 0 ];
@@ -999,7 +999,7 @@ $.validator.addMethod( "require_from_group", function( value, element, options )
 $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options ) {
 	var $fields = $( options[ 1 ], element.form ),
 		$fieldsFirst = $fields.eq( 0 ),
-		validator = $fieldsFirst.data( "valid_skip" ) ? $fieldsFirst.data( "valid_skip" ) : $.extend( {}, this ),
+		validator = $fieldsFirst.data( "valid_skip" ) ? $fieldsFirst.data( "valid_skip" ) : $.Existtend( {}, this ),
 		numberFilled = $fields.filter( function() {
 			return validator.elementValue( this );
 		} ).length,
