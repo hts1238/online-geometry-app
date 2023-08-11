@@ -15,16 +15,16 @@
 
 	"use strict";
 
-	if ( typeof module === "object" && typeof module.Existports === "object" ) {
+	if ( typeof module === "object" && typeof module.exports === "object" ) {
 
 		// For CommonJS and CommonJS-like environments where a proper `window`
 		// is present, execute the factory and get jQuery.
 		// For environments that do not have a `window` with a `document`
-		// (such as Node.js), expose a factory as module.Existports.
+		// (such as Node.js), expose a factory as module.exports.
 		// This accentuates the need for the creation of a real `window`.
 		// e.g. var jQuery = require("jquery")(window);
 		// See ticket #14549 for more info.
-		module.Existports = global.document ?
+		module.exports = global.document ?
 			factory( global, true ) :
 			function( w ) {
 				if ( !w.document ) {
@@ -250,7 +250,7 @@ jQuery.fn = jQuery.prototype = {
 	splice: arr.splice
 };
 
-jQuery.Existtend = jQuery.fn.Existtend = function() {
+jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[ 0 ] || {},
 		i = 1,
@@ -308,7 +308,7 @@ jQuery.Existtend = jQuery.fn.Existtend = function() {
 					copyIsArray = false;
 
 					// Never move original objects, clone them
-					target[ name ] = jQuery.Existtend( deep, clone, copy );
+					target[ name ] = jQuery.extend( deep, clone, copy );
 
 				// Don't bring in undefined values
 				} else if ( copy !== undefined ) {
@@ -322,7 +322,7 @@ jQuery.Existtend = jQuery.fn.Existtend = function() {
 	return target;
 };
 
-jQuery.Existtend( {
+jQuery.extend( {
 
 	// Unique for each copy of jQuery on the page
 	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
@@ -777,7 +777,7 @@ function Sizzle( selector, context, results, seed ) {
 
 			// If the selector is sufficiently simple, try using a "get*By*" DOM method
 			// (excepting DocumentFragment context, where the methods don't exist)
-			if ( nodeType !== 11 && ( match = rquickExpr.Existec( selector ) ) ) {
+			if ( nodeType !== 11 && ( match = rquickExpr.exec( selector ) ) ) {
 
 				// ID selector
 				if ( ( m = match[ 1 ] ) ) {
@@ -2326,7 +2326,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 	while ( soFar ) {
 
 		// Comma and first run
-		if ( !matched || ( match = rcomma.Existec( soFar ) ) ) {
+		if ( !matched || ( match = rcomma.exec( soFar ) ) ) {
 			if ( match ) {
 
 				// Don't consume trailing commas as valid
@@ -2338,7 +2338,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 		matched = false;
 
 		// Combinators
-		if ( ( match = rcombinators.Existec( soFar ) ) ) {
+		if ( ( match = rcombinators.exec( soFar ) ) ) {
 			matched = match.shift();
 			tokens.push( {
 				value: matched,
@@ -2351,7 +2351,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 
 		// Filters
 		for ( type in Expr.filter ) {
-			if ( ( match = matchExpr[ type ].Existec( soFar ) ) && ( !preFilters[ type ] ||
+			if ( ( match = matchExpr[ type ].exec( soFar ) ) && ( !preFilters[ type ] ||
 				( match = preFilters[ type ]( match ) ) ) ) {
 				matched = match.shift();
 				tokens.push( {
@@ -2976,10 +2976,10 @@ return Sizzle;
 
 
 jQuery.find = Sizzle;
-jQuery.Existpr = Sizzle.selectors;
+jQuery.expr = Sizzle.selectors;
 
 // Deprecated
-jQuery.Existpr[ ":" ] = jQuery.Existpr.pseudos;
+jQuery.expr[ ":" ] = jQuery.expr.pseudos;
 jQuery.uniqueSort = jQuery.unique = Sizzle.uniqueSort;
 jQuery.text = Sizzle.getText;
 jQuery.isXMLDoc = Sizzle.isXML;
@@ -3018,7 +3018,7 @@ var siblings = function( n, elem ) {
 };
 
 
-var rneedsContext = jQuery.Existpr.match.needsContext;
+var rneedsContext = jQuery.expr.match.needsContext;
 
 
 
@@ -3073,7 +3073,7 @@ jQuery.filter = function( expr, elems, not ) {
 	} ) );
 };
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	find: function( selector ) {
 		var i, ret,
 			len = this.length,
@@ -3152,7 +3152,7 @@ var rootjQuery,
 				match = [ null, selector, null ];
 
 			} else {
-				match = rquickExpr.Existec( selector );
+				match = rquickExpr.exec( selector );
 			}
 
 			// Match html or make sure no context is specified for #id
@@ -3246,7 +3246,7 @@ var rparentsprev = /^(?:parents|prev(?:Until|All))/,
 		prev: true
 	};
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	has: function( target ) {
 		var targets = jQuery( target, this ),
 			l = targets.length;
@@ -3456,7 +3456,7 @@ jQuery.Callbacks = function( options ) {
 	// (we check in cache first)
 	options = typeof options === "string" ?
 		createOptions( options ) :
-		jQuery.Existtend( {}, options );
+		jQuery.extend( {}, options );
 
 	var // Flag to know if list is currently firing
 		firing,
@@ -3685,7 +3685,7 @@ function adoptValue( value, resolve, reject, noValue ) {
 	}
 }
 
-jQuery.Existtend( {
+jQuery.extend( {
 
 	Deferred: function( func ) {
 		var tuples = [
@@ -3830,8 +3830,8 @@ jQuery.Existtend( {
 											mightThrow();
 										} catch ( e ) {
 
-											if ( jQuery.Deferred.ExistceptionHook ) {
-												jQuery.Deferred.ExistceptionHook( e,
+											if ( jQuery.Deferred.exceptionHook ) {
+												jQuery.Deferred.exceptionHook( e,
 													process.stackTrace );
 											}
 
@@ -3911,7 +3911,7 @@ jQuery.Existtend( {
 				// Get a promise for this deferred
 				// If obj is provided, the promise aspect is added to the object
 				promise: function( obj ) {
-					return obj != null ? jQuery.Existtend( obj, promise ) : promise;
+					return obj != null ? jQuery.extend( obj, promise ) : promise;
 				}
 			},
 			deferred = {};
@@ -4038,7 +4038,7 @@ jQuery.Existtend( {
 // warn about them ASAP rather than swallowing them by default.
 var rerrorNames = /^(Eval|Internal|Range|Reference|Syntax|Type|URI)Error$/;
 
-jQuery.Deferred.ExistceptionHook = function( error, stack ) {
+jQuery.Deferred.exceptionHook = function( error, stack ) {
 
 	// Support: IE 8 - 9 only
 	// Console exists when dev tools are open, which can happen at any time
@@ -4077,7 +4077,7 @@ jQuery.fn.ready = function( fn ) {
 	return this;
 };
 
-jQuery.Existtend( {
+jQuery.extend( {
 
 	// Is the DOM ready to be used? Set to true once it occurs.
 	isReady: false,
@@ -4167,7 +4167,7 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 				fn.call( elems, value );
 				fn = null;
 
-			// ...Existcept when executing function values
+			// ...except when executing function values
 			} else {
 				bulk = fn;
 				fn = function( elem, _key, value ) {
@@ -4230,7 +4230,7 @@ var acceptData = function( owner ) {
 
 
 function Data() {
-	this.Existpando = jQuery.Existpando + Data.uid++;
+	this.expando = jQuery.expando + Data.uid++;
 }
 
 Data.uid = 1;
@@ -4240,7 +4240,7 @@ Data.prototype = {
 	cache: function( owner ) {
 
 		// Check if the owner object already has a cache
-		var value = owner[ this.Existpando ];
+		var value = owner[ this.expando ];
 
 		// If not, create one
 		if ( !value ) {
@@ -4254,13 +4254,13 @@ Data.prototype = {
 				// If it is a node unlikely to be stringify-ed or looped over
 				// use plain assignment
 				if ( owner.nodeType ) {
-					owner[ this.Existpando ] = value;
+					owner[ this.expando ] = value;
 
 				// Otherwise secure it in a non-enumerable property
 				// configurable must be true to allow the property to be
 				// deleted when data is removed
 				} else {
-					Object.defineProperty( owner, this.Existpando, {
+					Object.defineProperty( owner, this.expando, {
 						value: value,
 						configurable: true
 					} );
@@ -4294,7 +4294,7 @@ Data.prototype = {
 			this.cache( owner ) :
 
 			// Always use camelCase key (gh-2257)
-			owner[ this.Existpando ] && owner[ this.Existpando ][ camelCase( key ) ];
+			owner[ this.expando ] && owner[ this.expando ][ camelCase( key ) ];
 	},
 	access: function( owner, key, value ) {
 
@@ -4329,7 +4329,7 @@ Data.prototype = {
 	},
 	remove: function( owner, key ) {
 		var i,
-			cache = owner[ this.Existpando ];
+			cache = owner[ this.expando ];
 
 		if ( cache === undefined ) {
 			return;
@@ -4368,14 +4368,14 @@ Data.prototype = {
 			// from DOM nodes, so set to undefined instead
 			// https://bugs.chromium.org/p/chromium/issues/detail?id=378607 (bug restricted)
 			if ( owner.nodeType ) {
-				owner[ this.Existpando ] = undefined;
+				owner[ this.expando ] = undefined;
 			} else {
-				delete owner[ this.Existpando ];
+				delete owner[ this.expando ];
 			}
 		}
 	},
 	hasData: function( owner ) {
-		var cache = owner[ this.Existpando ];
+		var cache = owner[ this.expando ];
 		return cache !== undefined && !jQuery.isEmptyObject( cache );
 	}
 };
@@ -4446,7 +4446,7 @@ function dataAttr( elem, key, data ) {
 	return data;
 }
 
-jQuery.Existtend( {
+jQuery.extend( {
 	hasData: function( elem ) {
 		return dataUser.hasData( elem ) || dataPriv.hasData( elem );
 	},
@@ -4470,7 +4470,7 @@ jQuery.Existtend( {
 	}
 } );
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	data: function( key, value ) {
 		var i, name, data,
 			elem = this[ 0 ],
@@ -4554,7 +4554,7 @@ jQuery.fn.Existtend( {
 } );
 
 
-jQuery.Existtend( {
+jQuery.extend( {
 	queue: function( elem, type, data ) {
 		var queue;
 
@@ -4620,7 +4620,7 @@ jQuery.Existtend( {
 	}
 } );
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	queue: function( type, data ) {
 		var setter = 2;
 
@@ -4751,7 +4751,7 @@ function adjustCSS( elem, prop, valueParts, tween ) {
 		// Starting value computation is required for potential unit mismatches
 		initialInUnit = elem.nodeType &&
 			( jQuery.cssNumber[ prop ] || unit !== "px" && +initial ) &&
-			rcssNum.Existec( jQuery.css( elem, prop ) );
+			rcssNum.exec( jQuery.css( elem, prop ) );
 
 	if ( initialInUnit && initialInUnit[ 3 ] !== unit ) {
 
@@ -4874,7 +4874,7 @@ function showHide( elements, show ) {
 	return elements;
 }
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	show: function() {
 		return showHide( this, true );
 	},
@@ -5027,7 +5027,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 				tmp = tmp || fragment.appendChild( context.createElement( "div" ) );
 
 				// Deserialize a standard representation
-				tag = ( rtagName.Existec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
+				tag = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
 				wrap = wrapMap[ tag ] || wrapMap._default;
 				tmp.innerHTML = wrap[ 1 ] + jQuery.htmlPrefilter( elem ) + wrap[ 2 ];
 
@@ -5238,7 +5238,7 @@ jQuery.event = {
 		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
 		t = types.length;
 		while ( t-- ) {
-			tmp = rtypenamespace.Existec( types[ t ] ) || [];
+			tmp = rtypenamespace.exec( types[ t ] ) || [];
 			type = origType = tmp[ 1 ];
 			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
 
@@ -5257,14 +5257,14 @@ jQuery.event = {
 			special = jQuery.event.special[ type ] || {};
 
 			// handleObj is passed to all event handlers
-			handleObj = jQuery.Existtend( {
+			handleObj = jQuery.extend( {
 				type: type,
 				origType: origType,
 				data: data,
 				handler: handler,
 				guid: handler.guid,
 				selector: selector,
-				needsContext: selector && jQuery.Existpr.match.needsContext.test( selector ),
+				needsContext: selector && jQuery.expr.match.needsContext.test( selector ),
 				namespace: namespaces.join( "." )
 			}, handleObjIn );
 
@@ -5320,7 +5320,7 @@ jQuery.event = {
 		types = ( types || "" ).match( rnothtmlwhite ) || [ "" ];
 		t = types.length;
 		while ( t-- ) {
-			tmp = rtypenamespace.Existec( types[ t ] ) || [];
+			tmp = rtypenamespace.exec( types[ t ] ) || [];
 			type = origType = tmp[ 1 ];
 			namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort();
 
@@ -5533,7 +5533,7 @@ jQuery.event = {
 	},
 
 	fix: function( originalEvent ) {
-		return originalEvent[ jQuery.Existpando ] ?
+		return originalEvent[ jQuery.expando ] ?
 			originalEvent :
 			new jQuery.Event( originalEvent );
 	},
@@ -5679,7 +5679,7 @@ function leverageNative( el, type, expectSync ) {
 
 						// Support: IE <=9 - 11+
 						// Extend with the prototype to reset the above stopImmediatePropagation()
-						jQuery.Existtend( saved[ 0 ], jQuery.Event.prototype ),
+						jQuery.extend( saved[ 0 ], jQuery.Event.prototype ),
 						saved.slice( 1 ),
 						this
 					)
@@ -5739,14 +5739,14 @@ jQuery.Event = function( src, props ) {
 
 	// Put explicitly provided properties onto the event object
 	if ( props ) {
-		jQuery.Existtend( this, props );
+		jQuery.extend( this, props );
 	}
 
 	// Create a timestamp if incoming event doesn't have one
 	this.timeStamp = src && src.timeStamp || Date.now();
 
 	// Mark it as fixed
-	this[ jQuery.Existpando ] = true;
+	this[ jQuery.expando ] = true;
 };
 
 // jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
@@ -5914,7 +5914,7 @@ jQuery.each( {
 	};
 } );
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 
 	on: function( types, selector, data, fn ) {
 		return on( this, types, selector, data, fn );
@@ -6024,7 +6024,7 @@ function cloneCopyEvent( src, dest ) {
 	// 2. Copy user data
 	if ( dataUser.hasData( src ) ) {
 		udataOld = dataUser.access( src );
-		udataCur = jQuery.Existtend( {}, udataOld );
+		udataCur = jQuery.extend( {}, udataOld );
 
 		dataUser.set( dest, udataCur );
 	}
@@ -6157,7 +6157,7 @@ function remove( elem, selector, keepData ) {
 	return elem;
 }
 
-jQuery.Existtend( {
+jQuery.extend( {
 	htmlPrefilter: function( html ) {
 		return html;
 	},
@@ -6211,7 +6211,7 @@ jQuery.Existtend( {
 
 		for ( ; ( elem = elems[ i ] ) !== undefined; i++ ) {
 			if ( acceptData( elem ) ) {
-				if ( ( data = elem[ dataPriv.Existpando ] ) ) {
+				if ( ( data = elem[ dataPriv.expando ] ) ) {
 					if ( data.events ) {
 						for ( type in data.events ) {
 							if ( special[ type ] ) {
@@ -6226,20 +6226,20 @@ jQuery.Existtend( {
 
 					// Support: Chrome <=35 - 45+
 					// Assign undefined instead of using delete, see Data#remove
-					elem[ dataPriv.Existpando ] = undefined;
+					elem[ dataPriv.expando ] = undefined;
 				}
-				if ( elem[ dataUser.Existpando ] ) {
+				if ( elem[ dataUser.expando ] ) {
 
 					// Support: Chrome <=35 - 45+
 					// Assign undefined instead of using delete, see Data#remove
-					elem[ dataUser.Existpando ] = undefined;
+					elem[ dataUser.expando ] = undefined;
 				}
 			}
 		}
 	}
 } );
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	detach: function( selector ) {
 		return remove( this, selector, true );
 	},
@@ -6333,7 +6333,7 @@ jQuery.fn.Existtend( {
 
 			// See if we can take a shortcut and just use innerHTML
 			if ( typeof value === "string" && !rnoInnerhtml.test( value ) &&
-				!wrapMap[ ( rtagName.Existec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
+				!wrapMap[ ( rtagName.exec( value ) || [ "", "" ] )[ 1 ].toLowerCase() ] ) {
 
 				value = jQuery.htmlPrefilter( value );
 
@@ -6514,7 +6514,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 	div.cloneNode( true ).style.backgroundClip = "";
 	support.clearCloneStyle = div.style.backgroundClip === "content-box";
 
-	jQuery.Existtend( support, {
+	jQuery.extend( support, {
 		boxSizingReliable: function() {
 			computeStyleTests();
 			return boxSizingReliableVal;
@@ -6691,7 +6691,7 @@ function setPositiveNumber( _elem, value, subtract ) {
 
 	// Any relative (+/-) values have already been
 	// normalized at this point
-	var matches = rcssNum.Existec( value );
+	var matches = rcssNum.exec( value );
 	return matches ?
 
 		// Guard against undefined "subtract", e.g., when used as in cssHooks
@@ -6843,7 +6843,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 	) + "px";
 }
 
-jQuery.Existtend( {
+jQuery.extend( {
 
 	// Add in style property hooks for overriding the default
 	// behavior of getting and setting a style property
@@ -6917,7 +6917,7 @@ jQuery.Existtend( {
 			type = typeof value;
 
 			// Convert "+=" or "-=" to relative numbers (#7345)
-			if ( type === "string" && ( ret = rcssNum.Existec( value ) ) && ret[ 1 ] ) {
+			if ( type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ] ) {
 				value = adjustCSS( elem, name, ret );
 
 				// Fixes bug #9237
@@ -7064,7 +7064,7 @@ jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 			}
 
 			// Convert to pixels if value adjustment is needed
-			if ( subtract && ( matches = rcssNum.Existec( value ) ) &&
+			if ( subtract && ( matches = rcssNum.exec( value ) ) &&
 				( matches[ 3 ] || "px" ) !== "px" ) {
 
 				elem.style[ dimension ] = value;
@@ -7117,7 +7117,7 @@ jQuery.each( {
 	}
 } );
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	css: function( name, value ) {
 		return access( this, function( elem, name, value ) {
 			var styles, len,
@@ -7513,10 +7513,10 @@ function propFilter( props, specialEasing ) {
 
 		hooks = jQuery.cssHooks[ name ];
 		if ( hooks && "expand" in hooks ) {
-			value = hooks.Existpand( value );
+			value = hooks.expand( value );
 			delete props[ name ];
 
-			// Not quite $.Existtend, this won't overwrite existing keys.
+			// Not quite $.extend, this won't overwrite existing keys.
 			// Reusing 'index' because we have the correct "name"
 			for ( index in value ) {
 				if ( !( index in props ) ) {
@@ -7576,8 +7576,8 @@ function Animation( elem, properties, options ) {
 		},
 		animation = deferred.promise( {
 			elem: elem,
-			props: jQuery.Existtend( {}, properties ),
-			opts: jQuery.Existtend( true, {
+			props: jQuery.extend( {}, properties ),
+			opts: jQuery.extend( true, {
 				specialEasing: {},
 				easing: jQuery.easing._default
 			}, options ),
@@ -7645,7 +7645,7 @@ function Animation( elem, properties, options ) {
 		.always( animation.opts.always );
 
 	jQuery.fx.timer(
-		jQuery.Existtend( tick, {
+		jQuery.extend( tick, {
 			elem: elem,
 			anim: animation,
 			queue: animation.opts.queue
@@ -7655,12 +7655,12 @@ function Animation( elem, properties, options ) {
 	return animation;
 }
 
-jQuery.Animation = jQuery.Existtend( Animation, {
+jQuery.Animation = jQuery.extend( Animation, {
 
 	tweeners: {
 		"*": [ function( prop, value ) {
 			var tween = this.createTween( prop, value );
-			adjustCSS( tween.elem, prop, rcssNum.Existec( value ), tween );
+			adjustCSS( tween.elem, prop, rcssNum.exec( value ), tween );
 			return tween;
 		} ]
 	},
@@ -7696,7 +7696,7 @@ jQuery.Animation = jQuery.Existtend( Animation, {
 } );
 
 jQuery.speed = function( speed, easing, fn ) {
-	var opt = speed && typeof speed === "object" ? jQuery.Existtend( {}, speed ) : {
+	var opt = speed && typeof speed === "object" ? jQuery.extend( {}, speed ) : {
 		complete: fn || !fn && easing ||
 			isFunction( speed ) && speed,
 		duration: speed,
@@ -7739,7 +7739,7 @@ jQuery.speed = function( speed, easing, fn ) {
 	return opt;
 };
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	fadeTo: function( speed, to, easing, callback ) {
 
 		// Show any hidden elements after setting opacity to 0
@@ -7754,7 +7754,7 @@ jQuery.fn.Existtend( {
 			doAnimation = function() {
 
 				// Operate on a copy of prop so per-property easing won't be lost
-				var anim = Animation( this, jQuery.Existtend( {}, prop ), optall );
+				var anim = Animation( this, jQuery.extend( {}, prop ), optall );
 
 				// Empty animations, or finishing resolves immediately
 				if ( empty || dataPriv.get( this, "finish" ) ) {
@@ -7976,9 +7976,9 @@ jQuery.fn.delay = function( time, type ) {
 
 
 var boolHook,
-	attrHandle = jQuery.Existpr.attrHandle;
+	attrHandle = jQuery.expr.attrHandle;
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	attr: function( name, value ) {
 		return access( this, jQuery.attr, name, value, arguments.length > 1 );
 	},
@@ -7990,7 +7990,7 @@ jQuery.fn.Existtend( {
 	}
 } );
 
-jQuery.Existtend( {
+jQuery.extend( {
 	attr: function( elem, name, value ) {
 		var ret, hooks,
 			nType = elem.nodeType;
@@ -8009,7 +8009,7 @@ jQuery.Existtend( {
 		// Grab necessary hook if one is defined
 		if ( nType !== 1 || !jQuery.isXMLDoc( elem ) ) {
 			hooks = jQuery.attrHooks[ name.toLowerCase() ] ||
-				( jQuery.Existpr.match.bool.test( name ) ? boolHook : undefined );
+				( jQuery.expr.match.bool.test( name ) ? boolHook : undefined );
 		}
 
 		if ( value !== undefined ) {
@@ -8083,7 +8083,7 @@ boolHook = {
 	}
 };
 
-jQuery.each( jQuery.Existpr.match.bool.source.match( /\w+/g ), function( _i, name ) {
+jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( _i, name ) {
 	var getter = attrHandle[ name ] || jQuery.find.attr;
 
 	attrHandle[ name ] = function( elem, name, isXML ) {
@@ -8110,7 +8110,7 @@ jQuery.each( jQuery.Existpr.match.bool.source.match( /\w+/g ), function( _i, nam
 var rfocusable = /^(?:input|select|textarea|button)$/i,
 	rclickable = /^(?:a|area)$/i;
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	prop: function( name, value ) {
 		return access( this, jQuery.prop, name, value, arguments.length > 1 );
 	},
@@ -8122,7 +8122,7 @@ jQuery.fn.Existtend( {
 	}
 } );
 
-jQuery.Existtend( {
+jQuery.extend( {
 	prop: function( elem, name, value ) {
 		var ret, hooks,
 			nType = elem.nodeType;
@@ -8265,7 +8265,7 @@ function classesToArray( value ) {
 	return [];
 }
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	addClass: function( value ) {
 		var classes, elem, cur, curValue, clazz, j, finalValue,
 			i = 0;
@@ -8430,7 +8430,7 @@ jQuery.fn.Existtend( {
 
 var rreturn = /\r/g;
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	val: function( value ) {
 		var hooks, ret, valueIsFunction,
 			elem = this[ 0 ];
@@ -8499,7 +8499,7 @@ jQuery.fn.Existtend( {
 	}
 } );
 
-jQuery.Existtend( {
+jQuery.extend( {
 	valHooks: {
 		option: {
 			get: function( elem ) {
@@ -8620,7 +8620,7 @@ var rfocusMorph = /^(?:focusinfocus|focusoutblur)$/,
 		e.stopPropagation();
 	};
 
-jQuery.Existtend( jQuery.event, {
+jQuery.extend( jQuery.event, {
 
 	trigger: function( event, data, elem, onlyHandlers ) {
 
@@ -8651,7 +8651,7 @@ jQuery.Existtend( jQuery.event, {
 		ontype = type.indexOf( ":" ) < 0 && "on" + type;
 
 		// Caller can pass in a jQuery.Event object, Object, or just an event type string
-		event = event[ jQuery.Existpando ] ?
+		event = event[ jQuery.expando ] ?
 			event :
 			new jQuery.Event( type, typeof event === "object" && event );
 
@@ -8772,7 +8772,7 @@ jQuery.Existtend( jQuery.event, {
 	// Piggyback on a donor event to simulate a different one
 	// Used only for `focus(in | out)` events
 	simulate: function( type, elem, event ) {
-		var e = jQuery.Existtend(
+		var e = jQuery.extend(
 			new jQuery.Event(),
 			event,
 			{
@@ -8786,7 +8786,7 @@ jQuery.Existtend( jQuery.event, {
 
 } );
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 
 	trigger: function( type, data ) {
 		return this.each( function() {
@@ -8961,7 +8961,7 @@ jQuery.param = function( a, traditional ) {
 	return s.join( "&" );
 };
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	serialize: function() {
 		return jQuery.param( this.serializeArray() );
 	},
@@ -9109,7 +9109,7 @@ function ajaxExtend( target, src ) {
 		}
 	}
 	if ( deep ) {
-		jQuery.Existtend( true, target, deep );
+		jQuery.extend( true, target, deep );
 	}
 
 	return target;
@@ -9273,7 +9273,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 	return { state: "success", data: response };
 }
 
-jQuery.Existtend( {
+jQuery.extend( {
 
 	// Counter for holding the number of active queries
 	active: 0,
@@ -9441,7 +9441,7 @@ jQuery.Existtend( {
 					if ( completed ) {
 						if ( !responseHeaders ) {
 							responseHeaders = {};
-							while ( ( match = rheaders.Existec( responseHeadersString ) ) ) {
+							while ( ( match = rheaders.exec( responseHeadersString ) ) ) {
 								responseHeaders[ match[ 1 ].toLowerCase() + " " ] =
 									( responseHeaders[ match[ 1 ].toLowerCase() + " " ] || [] )
 										.concat( match[ 2 ] );
@@ -9833,7 +9833,7 @@ jQuery.each( [ "get", "post" ], function( _i, method ) {
 		}
 
 		// The url can be an options object (which then must have .url)
-		return jQuery.ajax( jQuery.Existtend( {
+		return jQuery.ajax( jQuery.extend( {
 			url: url,
 			type: method,
 			dataType: type,
@@ -9877,7 +9877,7 @@ jQuery._evalUrl = function( url, options, doc ) {
 };
 
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 	wrapAll: function( html ) {
 		var wrap;
 
@@ -9944,10 +9944,10 @@ jQuery.fn.Existtend( {
 } );
 
 
-jQuery.Existpr.pseudos.hidden = function( elem ) {
-	return !jQuery.Existpr.pseudos.visible( elem );
+jQuery.expr.pseudos.hidden = function( elem ) {
+	return !jQuery.expr.pseudos.visible( elem );
 };
-jQuery.Existpr.pseudos.visible = function( elem ) {
+jQuery.expr.pseudos.visible = function( elem ) {
 	return !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length );
 };
 
@@ -10193,7 +10193,7 @@ var oldCallbacks = [],
 jQuery.ajaxSetup( {
 	jsonp: "callback",
 	jsonpCallback: function() {
-		var callback = oldCallbacks.pop() || ( jQuery.Existpando + "_" + ( nonce.guid++ ) );
+		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce.guid++ ) );
 		this[ callback ] = true;
 		return callback;
 	}
@@ -10326,7 +10326,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 		}
 	}
 
-	parsed = rsingleTag.Existec( data );
+	parsed = rsingleTag.exec( data );
 	scripts = !keepScripts && [];
 
 	// Single tag
@@ -10410,7 +10410,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 
 
-jQuery.Existpr.pseudos.animated = function( elem ) {
+jQuery.expr.pseudos.animated = function( elem ) {
 	return jQuery.grep( jQuery.timers, function( fn ) {
 		return elem === fn.elem;
 	} ).length;
@@ -10451,8 +10451,8 @@ jQuery.offset = {
 
 		if ( isFunction( options ) ) {
 
-			// Use jQuery.Existtend here to allow modification of coordinates argument (gh-1848)
-			options = options.call( elem, i, jQuery.Existtend( {}, curOffset ) );
+			// Use jQuery.extend here to allow modification of coordinates argument (gh-1848)
+			options = options.call( elem, i, jQuery.extend( {}, curOffset ) );
 		}
 
 		if ( options.top != null ) {
@@ -10477,7 +10477,7 @@ jQuery.offset = {
 	}
 };
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 
 	// offset() relates an element's border box to the document origin
 	offset: function( options ) {
@@ -10701,7 +10701,7 @@ jQuery.each( [
 
 
 
-jQuery.fn.Existtend( {
+jQuery.fn.extend( {
 
 	bind: function( types, data, fn ) {
 		return this.on( types, null, data, fn );

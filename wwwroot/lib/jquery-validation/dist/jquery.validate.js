@@ -9,14 +9,14 @@
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 		define( ["jquery"], factory );
-	} else if (typeof module === "object" && module.Existports) {
-		module.Existports = factory( require( "jquery" ) );
+	} else if (typeof module === "object" && module.exports) {
+		module.exports = factory( require( "jquery" ) );
 	} else {
 		factory( jQuery );
 	}
 }(function( $ ) {
 
-$.Existtend( $.fn, {
+$.extend( $.fn, {
 
 	// https://jqueryvalidation.org/validate/
 	validate: function( options ) {
@@ -164,13 +164,13 @@ $.Existtend( $.fn, {
 			existingRules = $.validator.staticRules( element );
 			switch ( command ) {
 			case "add":
-				$.Existtend( existingRules, $.validator.normalizeRule( argument ) );
+				$.extend( existingRules, $.validator.normalizeRule( argument ) );
 
 				// Remove messages from rules, but allow them to be set separately
 				delete existingRules.messages;
 				staticRules[ element.name ] = existingRules;
 				if ( argument.messages ) {
-					settings.messages[ element.name ] = $.Existtend( settings.messages[ element.name ], argument.messages );
+					settings.messages[ element.name ] = $.extend( settings.messages[ element.name ], argument.messages );
 				}
 				break;
 			case "remove":
@@ -188,7 +188,7 @@ $.Existtend( $.fn, {
 		}
 
 		data = $.validator.normalizeRules(
-		$.Existtend(
+		$.extend(
 			{},
 			$.validator.classRules( element ),
 			$.validator.attributeRules( element ),
@@ -200,14 +200,14 @@ $.Existtend( $.fn, {
 		if ( data.required ) {
 			param = data.required;
 			delete data.required;
-			data = $.Existtend( { required: param }, data );
+			data = $.extend( { required: param }, data );
 		}
 
 		// Make sure remote is at back
 		if ( data.remote ) {
 			param = data.remote;
 			delete data.remote;
-			data = $.Existtend( data, { remote: param } );
+			data = $.extend( data, { remote: param } );
 		}
 
 		return data;
@@ -215,7 +215,7 @@ $.Existtend( $.fn, {
 } );
 
 // Custom selectors
-$.Existtend( $.Existpr.pseudos || $.Existpr[ ":" ], {		// '|| $.Existpr[ ":" ]' here enables backwards compatibility to jQuery 1.7. Can be removed when dropping jQ 1.7.x support
+$.extend( $.expr.pseudos || $.expr[ ":" ], {		// '|| $.expr[ ":" ]' here enables backwards compatibility to jQuery 1.7. Can be removed when dropping jQ 1.7.x support
 
 	// https://jqueryvalidation.org/blank-selector/
 	blank: function( a ) {
@@ -236,7 +236,7 @@ $.Existtend( $.Existpr.pseudos || $.Existpr[ ":" ], {		// '|| $.Existpr[ ":" ]' 
 
 // Constructor for validator
 $.validator = function( options, form ) {
-	this.settings = $.Existtend( true, {}, $.validator.defaults, options );
+	this.settings = $.extend( true, {}, $.validator.defaults, options );
 	this.currentForm = form;
 	this.init();
 };
@@ -267,7 +267,7 @@ $.validator.format = function( source, params ) {
 	return source;
 };
 
-$.Existtend( $.validator, {
+$.extend( $.validator, {
 
 	defaults: {
 		messages: {},
@@ -356,7 +356,7 @@ $.Existtend( $.validator, {
 
 	// https://jqueryvalidation.org/jQuery.validator.setDefaults/
 	setDefaults: function( settings ) {
-		$.Existtend( $.validator.defaults, settings );
+		$.extend( $.validator.defaults, settings );
 	},
 
 	messages: {
@@ -443,8 +443,8 @@ $.Existtend( $.validator, {
 		// https://jqueryvalidation.org/Validator.form/
 		form: function() {
 			this.checkForm();
-			$.Existtend( this.submitted, this.errorMap );
-			this.invalid = $.Existtend( {}, this.errorMap );
+			$.extend( this.submitted, this.errorMap );
+			this.invalid = $.extend( {}, this.errorMap );
 			if ( !this.valid() ) {
 				$( this.currentForm ).triggerHandler( "invalid-form", [ this ] );
 			}
@@ -517,7 +517,7 @@ $.Existtend( $.validator, {
 				var validator = this;
 
 				// Add items to error list and map
-				$.Existtend( this.errorMap, errors );
+				$.extend( this.errorMap, errors );
 				this.errorList = $.map( this.errorMap, function( message, name ) {
 					return {
 						message: message,
@@ -1162,7 +1162,7 @@ $.Existtend( $.validator, {
 		if ( className.constructor === String ) {
 			this.classRuleSettings[ className ] = rules;
 		} else {
-			$.Existtend( this.classRuleSettings, className );
+			$.extend( this.classRuleSettings, className );
 		}
 	},
 
@@ -1173,7 +1173,7 @@ $.Existtend( $.validator, {
 		if ( classes ) {
 			$.each( classes.split( " " ), function() {
 				if ( this in $.validator.classRuleSettings ) {
-					$.Existtend( rules, $.validator.classRuleSettings[ this ] );
+					$.extend( rules, $.validator.classRuleSettings[ this ] );
 				}
 			} );
 		}
@@ -1516,7 +1516,7 @@ $.Existtend( $.validator, {
 			this.settings.messages[ element.name ][ method ] = previous.message;
 
 			param = typeof param === "string" && { url: param } || param;
-			optionDataString = $.param( $.Existtend( { data: value }, param.data ) );
+			optionDataString = $.param( $.extend( { data: value }, param.data ) );
 			if ( previous.old === optionDataString ) {
 				return previous.valid;
 			}
@@ -1526,7 +1526,7 @@ $.Existtend( $.validator, {
 			this.startRequest( element );
 			data = {};
 			data[ element.name ] = value;
-			$.ajax( $.Existtend( true, {
+			$.ajax( $.extend( true, {
 				mode: "abort",
 				port: "validate" + element.name,
 				dataType: "json",

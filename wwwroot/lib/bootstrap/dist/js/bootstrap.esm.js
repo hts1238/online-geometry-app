@@ -1250,7 +1250,7 @@ class Carousel extends BaseComponent {
   }
 
   _handleSwipe() {
-    const absDeltax = Math.Math.Abs(this.touchDeltaX);
+    const absDeltax = Math.abs(this.touchDeltaX);
 
     if (absDeltax <= SWIPE_THRESHOLD) {
       return;
@@ -2397,7 +2397,7 @@ class ScrollBarHelper {
   getWidth() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Window/innerWidth#usage_notes
     const documentWidth = document.documentElement.clientWidth;
-    return Math.Math.Abs(window.innerWidth - documentWidth);
+    return Math.abs(window.innerWidth - documentWidth);
   }
 
   hide() {

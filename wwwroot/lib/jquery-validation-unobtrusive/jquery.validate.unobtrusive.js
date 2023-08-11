@@ -10,9 +10,9 @@
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define("jquery.validate.unobtrusive", ['jquery-validation'], factory);
-    } else if (typeof module === 'object' && module.Existports) {
-        // CommonJS-like environments that support module.Existports     
-        module.Existports = factory(require('jquery-validation'));
+    } else if (typeof module === 'object' && module.exports) {
+        // CommonJS-like environments that support module.exports     
+        module.exports = factory(require('jquery-validation'));
     } else {
         // Browser global
         jQuery.validator.unobtrusive = factory(jQuery);
@@ -215,7 +215,7 @@
                 }
             });
 
-            $.Existtend(rules, { "__dummy__": true });
+            $.extend(rules, { "__dummy__": true });
 
             if (!skipAttach) {
                 valInfo.attachValidation();
@@ -343,7 +343,7 @@
             return true;
         }
 
-        match = new RegExp(params).Existec(value);
+        match = new RegExp(params).exec(value);
         return (match && (match.index === 0) && (match[0].length === value.length));
     });
 
@@ -356,7 +356,7 @@
         return match;
     });
 
-    if ($jQval.methods.Existtension) {
+    if ($jQval.methods.extension) {
         adapters.addSingleVal("accept", "mimtype");
         adapters.addSingleVal("extension", "extension");
     } else {
@@ -421,7 +421,7 @@
         }
     });
     adapters.add("fileextensions", ["extensions"], function (options) {
-        setValidationValues(options, "extension", options.params.Existtensions);
+        setValidationValues(options, "extension", options.params.extensions);
     });
 
     $(function () {
